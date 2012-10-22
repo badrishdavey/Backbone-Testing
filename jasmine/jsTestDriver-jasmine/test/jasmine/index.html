@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<title>amd-testing jsTestDriver-jasmine-backbone Test Suite</title>
+
+	<!-- Jasmine styles -->
+	<link rel="stylesheet" href="vendor/jasmine.css">
+</head>
+
+<body>
+	<!-- Testing libs -->
+	<script type="text/javascript" src="vendor/jasmine.js"></script>
+	<script type="text/javascript" src="vendor/jasmine-html.js"></script>
+	<script type="text/javascript" src="vendor/sinon-1.3.1.js"></script>
+	<script type="text/javascript" src="vendor/jasmine-sinon.js"></script>
+
+	<!-- Load application -->
+	<script type="text/javascript" src="../../assets/js/libs/require.js"></script>
+	<script type="text/javascript" src="config/requirejsConfig.js"></script>
+
+	<!-- Declare your spec files to be run here -->
+	<script>
+		// Ensure you point to where your spec folder is, base directory is app/,
+		// which is why ../test is necessary
+
+		require([
+			'spec/ThingListItemViewSpec',
+			'spec/ThingSpec',
+			'spec/ThingsSpec'
+		], function() {
+
+			var jasmineEnv = jasmine.getEnv();
+		  jasmineEnv.updateInterval = 250;
+
+		  var htmlReporter = new jasmine.HtmlReporter();
+		  jasmineEnv.addReporter(htmlReporter);
+
+		  jasmineEnv.specFilter = function(spec) {
+		    return htmlReporter.specFilter(spec);
+		  };
+
+		  var currentWindowOnload = window.onload;
+		  window.onload = function() {
+		    if (currentWindowOnload) {
+		      currentWindowOnload();
+		    }
+
+		    execJasmine();
+		  };
+
+		  function execJasmine() {
+		    jasmineEnv.execute();
+		  }
+		});
+	</script>
+</body>
+</html>

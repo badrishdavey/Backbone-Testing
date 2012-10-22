@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>amd-testing.jasmine</groupId>
+	<artifactId>maven-jsTestDriver-jasmine-backbone</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>maven-jsTestDriver-jasmine-backbone</name>
+	<url>http://maven.apache.org</url>
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jscoverage.skip>false</jscoverage.skip>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.javascript.jstestdriver.reportsfolder>target/jsTestDriver/</sonar.javascript.jstestdriver.reportsfolder>
+		<sourceDir>src/main/js</sourceDir>
+		<testSourceDir>src/test/js/jasmine/spec</testSourceDir>
+		<sonar.exclusions>config.js,main.js</sonar.exclusions>
+		<sonar.language>js</sonar.language>
+		<patch.skip>true</patch.skip>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.googlecode.jstd-maven-plugin</groupId>
+			<artifactId>jstd-maven-plugin</artifactId>
+			<version>1.3.2.5</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.googlecode.jstd-maven-plugin</groupId>
+				<artifactId>jstd-maven-plugin</artifactId>
+				<version>1.3.2.5</version>
+				<executions>
+					<execution>
+						<id>run-tests</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<jar>${basedir}/src/test/jsTestDriver/jsTestDriver-patched-1.3.4.b.jar</jar>
+							<config>${basedir}/src/test/js/jasmine/config/jsTestDriver_maven_jasmine.conf</config>
+							<reset>true</reset>
+							<tests>all</tests>
+							<testOutput>${basedir}/target/jstestdriver</testOutput>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
